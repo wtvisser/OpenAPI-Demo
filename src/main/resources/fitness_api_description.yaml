@@ -1,0 +1,84 @@
+openapi: 3.0.3
+info:
+  title: Health and Fitness API
+  description: API for tracking workouts, nutrition, and health metrics.
+  version: 1.0.0
+servers:
+  - url: https://myfitnesstracker.ai/api/v1
+    description: Demo
+tags:
+  - name: fitness
+    description: Workouts, nutrition and health metrics
+    
+paths:
+  /workouts:
+    get:
+      summary: Get all workouts
+      responses:
+        '200':
+          description: A list of workouts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Workout'
+  
+    post:
+      summary: Create a new workout
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Workout'
+      responses:
+        '201':
+          description: Workout created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workout'
+                
+  /workouts/{id}:
+    get:
+      summary: Get a specific workout by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the workout
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A single workout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workout'
+        '404':
+          description: Workout not found
+          
+components:
+      schemas:
+        Workout:
+          type: object
+          properties:
+            id:
+              type: string
+              example: "123"
+            type:
+              type: string
+              example: "Running"
+            duration:
+              type: integer
+              example: 30
+              description: Duration in minutes
+            caloriesBurned:
+              type: integer
+              example: 300
+            date:
+              type: string
+              format: date
+              example: "2023-10-01"          
