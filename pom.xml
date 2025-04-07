@@ -62,10 +62,14 @@
                             <skipValidateSpec>true</skipValidateSpec>
                             <inputSpec>./src/main/resources/fitness_api_description.yaml</inputSpec>
                             <generatorName>spring</generatorName>
-                            <configOptions>
-                                <openApiNullable>false</openApiNullable>
-                                <interfaceOnly>true</interfaceOnly>
-                            </configOptions>
+		            <apiPackage>com.example.demo.api</apiPackage>
+		            <modelPackage>com.example.demo.model</modelPackage>
+		            <supportingFilesToGenerate>
+		                ApiUtil.java
+		            </supportingFilesToGenerate>
+		            <configOptions>
+		                <delegatePattern>true</delegatePattern>
+                	    </configOptions>
                         </configuration>
                     </execution>
                 </executions>
