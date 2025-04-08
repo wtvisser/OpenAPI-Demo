@@ -167,14 +167,66 @@ In the above YAML code, we define the same components used in the schema keyword
 * type – The type of the field. If we use the object type, we must also define the properties keyword.
 * properties – A list of all object field names and their types.
 
-### Step 5 - Review the API Documentation     
-
-At this point, the API is available online to be reviewed by the product’s stakeholders. We know that the main advantage of API-First Development is the power to fail or succeed quickly without wasting time in the development phase. Thus, ensure that everyone reviews and collaborates with the proposed API resources, response codes, data models, and the descriptions and responsibilities of the API before moving to the development phase.
-
-Once the team agrees on a design, they can work on the API in parallel.
-
 ### Step 6 - Import to Spring Boot Application
 
 This section shows how the developer can import the YAML document into the application and auto-generate the API skeleton code.
 
 First, we must create an empty YAML file named account_api_description.yaml inside the /src/main/resources folder. Then, let’s replace the content of account_api_description.yaml with the complete YAML code in the Swagger online editor. Finally, we must add the openapi-generator-maven-plugin plugin to the <plugins> tag in the Spring Boot Application pom.xml file:
+
+    <plugin>
+        <groupId>org.openapitools</groupId>
+        <artifactId>openapi-generator-maven-plugin</artifactId>
+        <version>6.2.1</version>
+        <executions>
+            <execution>
+                <goals>
+                    <goal>generate</goal>
+                </goals>
+                <configuration>
+                    <skipValidateSpec>true</skipValidateSpec>
+                    <inputSpec>./src/main/java/com/example/resources/fitness_api_description.yaml</inputSpec>
+                    <generatorName>spring</generatorName>
+        <apiPackage>com.example.demo.api</apiPackage>
+        <modelPackage>com.example.demo.model</modelPackage>
+        <supportingFilesToGenerate>
+            ApiUtil.java
+        </supportingFilesToGenerate>
+        <configOptions>
+            <delegatePattern>true</delegatePattern>
+              </configOptions>
+                </configuration>
+            </execution>
+        </executions>
+    </plugin>
+
+### Step 7 - Add OpenAPI and Swagger UI documentation
+
+We can generate OpenAPI documentation:
+
+    <dependency>
+        <groupId>org.springdoc</groupId>
+        <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+        <version>2.8.5</version>
+    </dependency>
+
+Now, let’s generate the server-side code from the YAML file by running
+
+    mvn clean install
+
+After that, we can check the following generated code in the target folder:
+
+ADD IMAGE
+
+### Step 8 - Trying it out
+
+We can run our application and find the OpenAPI descriptions at 
+
+    /v3/api-docs
+
+We can also get the documentation as a yaml file by changing the path to /v3/api-docs.yaml.
+
+The springdoc-openapi dependency already includes Swagger UI, so we’re all set to access the API documentation at:
+
+    /swagger-ui/index.html
+
+ADD IMAGE
