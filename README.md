@@ -215,7 +215,7 @@ Now, let’s generate the server-side code from the YAML file by running
 
 After that, we can check the following generated code in the target folder:
 
-ADD IMAGE
+![Target folder](resources/targetfolder.png?raw=true)
 
 ### Step 8 - Trying it out
 
@@ -229,4 +229,4 @@ The springdoc-openapi dependency already includes Swagger UI, so we’re all set
 
     /swagger-ui/index.html
 
-ADD IMAGE
+![Target folder](resources/swaggerui.png?raw=true)
