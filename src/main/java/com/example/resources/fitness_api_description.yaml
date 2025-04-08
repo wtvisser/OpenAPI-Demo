@@ -1,3 +1,4 @@
+# add top-level context
 openapi: 3.0.3
 info:
   title: Health and Fitness API
@@ -9,7 +10,8 @@ servers:
 tags:
   - name: fitness
     description: Workouts, nutrition and health metrics
-    
+
+# add API paths  
 paths:
   /workouts:
     get:
@@ -59,7 +61,8 @@ paths:
                 $ref: '#/components/schemas/Workout'
         '404':
           description: Workout not found
-          
+
+# add components  
 components:
       schemas:
         Workout:
