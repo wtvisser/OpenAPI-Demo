@@ -45,7 +45,7 @@ Another reason to use API-First Development is that multiple people can work in 
 | create a new workout    | POST      | /workouts      | 404 - Account not found | 204 - Add workout completed   |
 | get a specific workouts | GET       | /workouts/{id} | 404 - Account not found | 200 - Get workout information |
 
-### Step 2 - Level-Leel Context of the API
+### Step 2 - Top-Level Context of the API
 
 Let’s start by defining the top-level context of the API. To do that, go to the [Swagger Editor](https://editor.swagger.io/) and replace the content on the left side of the editor with the following YAML code:
 
@@ -57,6 +57,9 @@ Let’s start by defining the top-level context of the API. To do that, go to th
     servers:
       - url: https://myfitnesstracker.ai/api/v1
         description: Demo
+    tags:
+      - name: fitness
+        description: Workouts, nutrition and health metrics
 
 Let’s check each keyword individually:
 
@@ -198,6 +201,19 @@ First, we must create an empty YAML file named account_api_description.yaml insi
             </execution>
         </executions>
     </plugin>
+
+We need to add the OpenAPI dependencies to generate the API classes:
+
+    <dependency>
+        <groupId>org.openapitools</groupId>
+        <artifactId>jackson-databind-nullable</artifactId>
+        <version>0.2.1</version>
+    </dependency>
+    <dependency>
+        <groupId>org.springdoc</groupId>
+        <artifactId>springdoc-openapi-ui</artifactId>
+        <version>1.7.0</version>
+    </dependency>
 
 ### Step 7 - Add OpenAPI and Swagger UI documentation
 
