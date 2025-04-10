@@ -22,7 +22,37 @@ From an Agile team perspective, API-First Development has a few advantages:
 
 To fully understand the advantages of an APi-first approach, we’ll compare two agile teams’ workflow scenarios. The first team uses the traditional approach, while the second uses API-First Development:
 
-![Traditional development vs API-First development](https://www.baeldung.com/wp-content/uploads/2023/03/api-first-vs-traditional-2-1024x553-1.jpeg)
+**Code-First API Developnent:**
+```mermaid
+flowchart LR
+    A[product feature] --> B[pull request with API design and business logic implementation]
+    B --> implement
+    implement --> D[publish API]
+    D --> E[use API and specification]
+    subgraph implement
+        direction TB
+        C[review pull request] <--> F[code changes]
+    end
+```
+**Design-First API Development:**
+```mermaid
+flowchart LR
+    A[product feature] --> B[design API contract]
+    B --> design
+    design --> D[publish API skeleton code]
+    D --> E[use API and specification]
+    E --> F[implement business logic]
+    F --> implement
+    implement --> H[publish business logic]
+    subgraph design
+        direction TB
+        C[review API contract] <--> I[change API contract]
+    end
+    subgraph implement
+        direction TB
+        G[review business logic]<--> J[change business logic]
+    end
+```
 
 In a traditional scenario, a developer is assigned to build a new product feature. Typically, that developer creates the new feature by implementing the business logic first and then connecting that logic to an in-code API design. Thus, the API becomes available for the stakeholders to review only when the developer finishes all the code changes for that feature. Therefore, creating slowness and miscommunication about the API contract review and agreement.
 
