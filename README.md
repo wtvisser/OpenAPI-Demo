@@ -200,7 +200,9 @@ In the above YAML code, we define the same components used in the schema keyword
 * type – The type of the field. If we use the object type, we must also define the properties keyword.
 * properties – A list of all object field names and their types.
 
-### Step 6 - Import to Spring Boot Application
+## Create the API Skeleton ##
+
+### Step 5 - Import to Spring Boot Application
 
 This section shows how the developer can import the YAML document into the application and auto-generate the API skeleton code.
 
@@ -245,7 +247,7 @@ We need to add the OpenAPI dependencies to generate the API classes:
         <version>1.7.0</version>
     </dependency>
 
-### Step 7 - Add OpenAPI and Swagger UI documentation
+### Step 6 - Add OpenAPI and Swagger UI documentation
 
 We can generate OpenAPI documentation:
 
@@ -263,7 +265,7 @@ After that, we can check the following generated code in the target folder:
 
 ![Target folder](resources/targetfolder.png?raw=true)
 
-### Step 8 - Trying it out
+## Trying it out
 
 We can run our application and find the OpenAPI descriptions at 
 
@@ -276,3 +278,10 @@ The springdoc-openapi dependency already includes Swagger UI, so we’re all set
     /swagger-ui/index.html
 
 ![Target folder](resources/swaggerui.png?raw=true)
+
+## Create a REST Client ##
+
+Now that we have the API and its documentation, we can generate a REST client that consumes the API.
+
+Swagger provides a utility jar that allows us to generate REST clients for various programming languages and multiple frameworks.
+
