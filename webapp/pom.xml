@@ -3,13 +3,13 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.example</groupId>
-	<artifactId>demo</artifactId>
+	<groupId>com.fitnesstracker</groupId>
+	<artifactId>app</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>demo</name>
-	<description>Demo project for Spring Boot</description>
+	<name>WebApp</name>
+	<description>Demo API service</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -35,7 +35,7 @@
             <artifactId>spring-data-jpa</artifactId>
             <version>2.4.6</version>
         </dependency>
-	<!-- # add OpenAPI dependencies -->
+	    <!-- # add OpenAPI dependencies -->
         <dependency>
             <groupId>org.openapitools</groupId>
             <artifactId>jackson-databind-nullable</artifactId>
@@ -55,7 +55,7 @@
 
     <build>
         <plugins>
-	    <!-- # add OpenAPI to the Spring Boot application -->
+	        <!-- # add OpenAPI to the Spring Boot application -->
             <plugin>
                 <groupId>org.openapitools</groupId>
                 <artifactId>openapi-generator-maven-plugin</artifactId>
@@ -67,16 +67,16 @@
                         </goals>
                         <configuration>
                             <skipValidateSpec>true</skipValidateSpec>
-                            <inputSpec>./src/main/java/com/example/resources/fitness_api_description.yaml</inputSpec>
+                            <inputSpec>./src/main/java/com/fitnesstracker/resources/fitness_api_description.yaml</inputSpec>
                             <generatorName>spring</generatorName>
-		            <apiPackage>com.example.demo.api</apiPackage>
-		            <modelPackage>com.example.demo.model</modelPackage>
-		            <supportingFilesToGenerate>
-		                ApiUtil.java
-		            </supportingFilesToGenerate>
-		            <configOptions>
-		                <delegatePattern>true</delegatePattern>
-                	    </configOptions>
+                            <apiPackage>com.fitnesstracker.app.api</apiPackage>
+                            <modelPackage>com.fitnesstracker.app.model</modelPackage>
+                            <supportingFilesToGenerate>
+                                ApiUtil.java
+                            </supportingFilesToGenerate>
+                            <configOptions>
+                                <delegatePattern>true</delegatePattern>
+                            </configOptions>
                         </configuration>
                     </execution>
                 </executions>
