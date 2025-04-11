@@ -265,7 +265,7 @@ After that, we can check the following generated code in the target folder:
 
 ![Target folder](resources/targetfolder.png?raw=true)
 
-## Trying it out
+## Trying it out in the browser
 
 We can run our application and find the OpenAPI descriptions at 
 
@@ -278,6 +278,28 @@ The springdoc-openapi dependency already includes Swagger UI, so we’re all set
     /swagger-ui/index.html
 
 ![Target folder](resources/swaggerui.png?raw=true)
+
+## Trying it out with Postman
+
+Let's call the API from Postman.
+
+As described on (GitHub Docs)[https://docs.github.com/en/codespaces/developing-in-a-codespace/forwarding-ports-in-your-codespace], we need the address and the Github Token. The address is easy: copy it from the port forwarding:
+
+![Target folder](resources/port.png?raw=true)
+
+The Github Token we can get in the codespace terminal by entering `echo $GITHUB_TOKEN`. The token is a string beginning with `ghu_`.
+
+Let's enter the address and token into Postman. By calling the base URL we get the website. 
+
+![Target folder](resources/postman_website.png?raw=true)
+
+To query the API, we have to extend the address with the API's path definition: ``. Let's put a breakpoint in the method we will be calling:
+
+![Target folder](resources/breakpoint.png?raw=true)
+
+When calling the API method, we hit the breakpoint. However, because we do not have implemented the method we get an error code back in Postman:
+
+![Target folder](resources/postman_api.png?raw=true)
 
 ## Create a REST Client ##
 
