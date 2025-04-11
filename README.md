@@ -305,5 +305,15 @@ When calling the API method, we hit the breakpoint. However, because we do not h
 
 Now that we have the API and its documentation, we can generate a REST client that consumes the API.
 
-Swagger provides a utility jar that allows us to generate REST clients for various programming languages and multiple frameworks.
+OpenAPI provides a utility jar that allows us to generate REST clients for various programming languages and multiple frameworks. We can install it with npm:
+
+    npm install @openapitools/openapi-generator-cli -g
+
+Next, let's generate the client code:
+
+    openapi-generator-cli generate -i webapp/src/main/java/com/fitnesstracker/resources/fitness_api_description.yaml -g java -p java8=true --library resttemplate -o client --api-package com.fitnesstracker.client.api --model-package com.fitnesstracker.client.model --invoker-package com.fitnesstracker.client.invoker --group-id com.fitnesstracker --artifact-id client.fitnesstracker --artifact-version 0.0.1-SNAPSHOT
+
+This generates the API and model along with a JAR file that we can add as a dependency into a spring boot application:
+
+![Target folder](resources/client.png?raw=true)
 
