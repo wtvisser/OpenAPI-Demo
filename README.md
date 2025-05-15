@@ -1,28 +1,25 @@
-# OpenAPI-Demo
+# API-Design First
 
-## What Is the Open API Specification
+This demo provides an insight into API-Design First. It consists of a short theoretical introduction, followed by a code example in Java using OpenAPI and Swagger.
 
-The [OpenAPI Specification](https://www.openapis.org/) (OAS) standardizes how to create an API design document. The typical workflow in an API-First approach using OAS is as follows:
+## API Development: A Few Definitions
 
-    The team creates a design document and shares it with the involved people for feedback and iterative change.
-    When the team and stakeholders agree on the API design, a developer uses the document to generate a server-side skeleton code using a document generator tool.
-    Finally, the developer starts working on the API’s business logic using the previously generated code.
+**API-First**: An approach that treats APIs as the _core focus of development_. APIs are _considered critical business assets_ upon wich the organization operates. API contracts are typically written in a description language such as OpenAPI.
 
-[OAS 3.1](https://spec.openapis.org/oas/v3.1.0) allows specifying HTTP resources, verbs, response codes, data models, media types, security schemes, and other API components.
+An API and its implementation usually consists of three layers:
 
-## Why Use API-First Development
+```mermaid
+block-beta
+  columns 1
+  a["Implementation<br>(API, Business Logic)"]
+  b["Object Model<br>(Domain Objects, Aggregates)"]
+  c["Data Model<br>(Tables, Entities)"]
+```
 
-Agile Development is one of the most used methodologies in the software industry. Being agile means building something small as quickly as possible to either fail fast and change the initial design or move on with it, incrementally adding small changes.
+**Code-First**: The API specification is implemented in code upon which is iterated. 
 
-From an Agile team perspective, API-First Development has a few advantages:
+A code-first development process typically looks as follows:
 
-    Provides a way for fast feedback on the API design.
-    Creates a single channel of communication toward an API contract agreement.
-    Allows parallel work of the people involved in the API design.
-
-To fully understand the advantages of an APi-first approach, we’ll compare two agile teams’ workflow scenarios. The first team uses the traditional approach, while the second uses API-First Development:
-
-**Code-First API Developnent:**
 ```mermaid
 flowchart LR
     A[product feature] --> B[pull request with API design and business logic implementation]
@@ -34,7 +31,32 @@ flowchart LR
         C[review pull request] <--> F[code changes]
     end
 ```
-**Design-First API Development:**
+
+This approach means that this business and object model is created first, whose business logic is then implemented, after which the data model, storage and APIs are created:
+
+```mermaid
+block-beta
+  columns 4
+  space
+      a["Object Model<br>(Domain Objects, Aggregates)"]:2
+  space
+  space:4
+  space
+      b["Implementation<br>(Business Logic)"]:2
+  space
+  space:4
+  c["Data Model<br>(Tables, Entities)"]:2
+  d["Implementation<br>(API)"]:2
+
+a-->b
+b-->c
+b-->d
+```
+
+**Design-First**: The development of an API starts with its design before any code is written. 
+
+A design-first development process typically looks as follows:
+
 ```mermaid
 flowchart LR
     A[product feature] --> B[design API contract]
@@ -54,16 +76,53 @@ flowchart LR
     end
 ```
 
+With a design-first approach means that this business and object model is created first, whose business logic is then implemented, after which the data model, storage and APIs are created:
+
+```mermaid
+block-beta
+  columns 3
+  space
+  a["API Contract<br>(Specification)"]
+  space
+  space:3
+  b["Implementation<br>(Business Logic)"]
+  c["Object Model<br>(Domain Objects, Aggregates)"]
+  d["Implementation<br>(API)"]
+  space
+  space:3
+  e["Data Model<br>(Tables, Entities)"]
+
+a-->b
+a-->c
+a-->d
+c-->e
+```
+
 In a traditional scenario, a developer is assigned to build a new product feature. Typically, that developer creates the new feature by implementing the business logic first and then connecting that logic to an in-code API design. Thus, the API becomes available for the stakeholders to review only when the developer finishes all the code changes for that feature. Therefore, creating slowness and miscommunication about the API contract review and agreement.
 
-In API-First Development, a designer creates the API contract document before the business logic development phase. That document provides a common language among the product stakeholders to evaluate the effort to build, provide timely feedback, create test use cases, document the API, etc. Thus, we can be more agile by either changing the initial design or moving on with it before wasting any time developing the application.
+In API-Design First development, a designer creates the API contract document before the business logic development phase. That document provides a common language among the product stakeholders to evaluate the effort to build, provide timely feedback, create test use cases, document the API, etc. Thus, we can be more agile by either changing the initial design or moving on with it before wasting any time developing the application.
 
-Another reason to use API-First Development is that multiple people can work in parallel on the same product feature after a document is created, for instance:
+## What Is the Open API Specification
 
-* Product managers evaluate risks, create new features, and manage time.
-* QA analysts build their test scenarios.
-* Technical writers document the API.
-* Developers implement the business logic code.
+The [OpenAPI Specification](https://www.openapis.org/) (OAS) standardizes how to create an API design document. The typical workflow in an API-First approach using OAS is as follows:
+
+* The team creates a design document and shares it with the involved people for feedback and iterative change.
+* When the team and stakeholders agree on the API design, a developer uses the document to generate a server-side skeleton code using a document generator tool.
+* Finally, the developer starts working on the API’s business logic using the previously generated code.
+
+[OAS 3.1](https://spec.openapis.org/oas/v3.1.0) allows specifying HTTP resources, verbs, response codes, data models, media types, security schemes, and other API components.
+
+Combining  API-Design First  with OpenAPI provides some important benefits:
+
+* **Readable by humans and machines**: The YAML/JSON format means it's clear for developers and allows for API design reviews / governance with teams that don't have to read multiple programming languages.
+* **Interactive documentation**: API Documentation generators like Bump.sh turn OpenAPI documents into interactive documentation, showing off parameters and examples, so clients can quickly and easily work with the API.
+* **Mock servers**: Tools like Microcks and Wiretap can use the API descriptions to simulate the API, allowing parallel development of API and client applications, and allowing feedback to come in early and often.
+* **Server-side Validation**: Instead of rewriting all of your validation logic in docs and code, you can use the API descriptions to power your application, making absolute certain the the documentation matches the implementation and reducing time spent writing code.
+* **Contract Testing**: Use automated tools to probe your API implementation based off the API descriptions, and add assertions to existing test suites saying "does this response match what it says in the API description", further ensuring the two are in agreement and saving time writing complicated contract testing by hand.
+* **Code Generation**: Many tools generate client libraries or server stubs directly from an OpenAPI document, saving loads of time.
+* **API Style Guides**: Style guides are hard to enforce against code, developers need to check them manually, but with OpenAPI you can enforce standards on the API from the very first endpoint that is described.
+
+# Example
 
 ## Create the API Specification
 
