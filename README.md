@@ -18,6 +18,8 @@ block-beta
 
 **Code-First**: The API specification is implemented in code upon which is iterated. 
 
+In a traditional scenario, a developer is assigned to build a new product feature. Typically, that developer creates the new feature by implementing the business logic first and then connecting that logic to an in-code API design. Thus, the API becomes available for the stakeholders to review only when the developer finishes all the code changes for that feature. Therefore, creating slowness and miscommunication about the API contract review and agreement.
+
 A code-first development process typically looks as follows:
 
 ```mermaid
@@ -55,6 +57,8 @@ b-->d
 
 **Design-First**: The development of an API starts with its design before any code is written. 
 
+In API-Design First development, a designer creates the API contract document before the business logic development phase. That document provides a common language among the product stakeholders to evaluate the effort to build, provide timely feedback, create test use cases, document the API, etc. Thus, we can be more agile by either changing the initial design or moving on with it before wasting any time developing the application.
+
 A design-first development process typically looks as follows:
 
 ```mermaid
@@ -76,7 +80,7 @@ flowchart LR
     end
 ```
 
-With a design-first approach means that this business and object model is created first, whose business logic is then implemented, after which the data model, storage and APIs are created:
+With a design-first approach the contract specification is created first, typically as part of the overall system design. Afterwards the object model, business logic, client logic, and data storage can be implemented in parallel:
 
 ```mermaid
 block-beta
@@ -98,10 +102,6 @@ a-->d
 c-->e
 ```
 
-In a traditional scenario, a developer is assigned to build a new product feature. Typically, that developer creates the new feature by implementing the business logic first and then connecting that logic to an in-code API design. Thus, the API becomes available for the stakeholders to review only when the developer finishes all the code changes for that feature. Therefore, creating slowness and miscommunication about the API contract review and agreement.
-
-In API-Design First development, a designer creates the API contract document before the business logic development phase. That document provides a common language among the product stakeholders to evaluate the effort to build, provide timely feedback, create test use cases, document the API, etc. Thus, we can be more agile by either changing the initial design or moving on with it before wasting any time developing the application.
-
 ## What Is the Open API Specification
 
 The [OpenAPI Specification](https://www.openapis.org/) (OAS) standardizes how to create an API design document. The typical workflow in an API-First approach using OAS is as follows:
@@ -112,7 +112,7 @@ The [OpenAPI Specification](https://www.openapis.org/) (OAS) standardizes how to
 
 [OAS 3.1](https://spec.openapis.org/oas/v3.1.0) allows specifying HTTP resources, verbs, response codes, data models, media types, security schemes, and other API components.
 
-Combining  API-Design First  with OpenAPI provides some important benefits:
+Combining API-Design First with OpenAPI provides some important benefits:
 
 * **Readable by humans and machines**: The YAML/JSON format means it's clear for developers and allows for API design reviews / governance with teams that don't have to read multiple programming languages.
 * **Interactive documentation**: API Documentation generators like Bump.sh turn OpenAPI documents into interactive documentation, showing off parameters and examples, so clients can quickly and easily work with the API.
@@ -265,7 +265,7 @@ In the above YAML code, we define the same components used in the schema keyword
 
 This section shows how the developer can import the YAML document into the application and auto-generate the API skeleton code.
 
-First, we must create an empty YAML file named account_api_description.yaml inside the /src/main/resources folder. Then, let’s replace the content of account_api_description.yaml with the complete YAML code in the Swagger online editor. Finally, we must add the openapi-generator-maven-plugin plugin to the <plugins> tag in the Spring Boot Application pom.xml file:
+First, we must create an empty YAML file named `fitness_api_description.yaml` inside the `/src/main/java/com/fitnesstracker/resources` folder. Then, let’s replace the content of `fitness_api_description.yaml` with the complete YAML code in the Swagger online editor. Finally, we must add the `openapi-generator-maven-plugin` to the `<plugins>` tag in the Spring Boot Application pom.xml file:
 
     <plugin>
         <groupId>org.openapitools</groupId>
@@ -278,7 +278,7 @@ First, we must create an empty YAML file named account_api_description.yaml insi
                 </goals>
                 <configuration>
                     <skipValidateSpec>true</skipValidateSpec>
-                    <inputSpec>./src/main/java/com/example/resources/fitness_api_description.yaml</inputSpec>
+                    <inputSpec>./src/main/java/com/fitnesstracker/resources/fitness_api_description.yaml</inputSpec>
                     <generatorName>spring</generatorName>
         <apiPackage>com.example.demo.api</apiPackage>
         <modelPackage>com.example.demo.model</modelPackage>
@@ -308,7 +308,7 @@ We need to add the OpenAPI dependencies to generate the API classes:
 
 ### Step 6 - Add OpenAPI and Swagger UI documentation
 
-We can generate OpenAPI documentation:
+We can generate also OpenAPI documentation by including an additional dependency:
 
     <dependency>
         <groupId>org.springdoc</groupId>
@@ -330,9 +330,11 @@ We can run our application and find the OpenAPI descriptions at
 
     /v3/api-docs
 
-We can also get the documentation as a yaml file by changing the path to /v3/api-docs.yaml.
+We can also get the documentation as a yaml file by changing the path to 
 
-The springdoc-openapi dependency already includes Swagger UI, so we’re all set to access the API documentation at:
+    /v3/api-docs.yaml
+
+The springdoc-openapi dependency already includes the Swagger UI, so we’re all set to access the API documentation at:
 
     /swagger-ui/index.html
 
@@ -342,7 +344,7 @@ The springdoc-openapi dependency already includes Swagger UI, so we’re all set
 
 Let's call the API from Postman.
 
-As described on (GitHub Docs)[https://docs.github.com/en/codespaces/developing-in-a-codespace/forwarding-ports-in-your-codespace], we need the address and the Github Token. The address is easy: copy it from the port forwarding:
+As described on [GitHub Docs](https://docs.github.com/en/codespaces/developing-in-a-codespace/forwarding-ports-in-your-codespace), we need the address and the Github Token. The address is easy: copy it from the port forwarding:
 
 ![Target folder](resources/port.png?raw=true)
 
@@ -352,7 +354,7 @@ Let's enter the address and token into Postman. By calling the base URL we get t
 
 ![Target folder](resources/postman_website.png?raw=true)
 
-To query the API, we have to extend the address with the API's path definition: ``. Let's put a breakpoint in the method we will be calling:
+To query the API, we have to extend the address with the API's path definition: `/api/v1/workouts`. Let's put a breakpoint in the method we will be calling:
 
 ![Target folder](resources/breakpoint.png?raw=true)
 
